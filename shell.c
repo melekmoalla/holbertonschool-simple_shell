@@ -12,7 +12,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
     int wa9if;
     while (1)
     {
-        printf(">");
+        printf("");
         line = read_line();
         args = paress(line);
         wa9if = execute(args);
