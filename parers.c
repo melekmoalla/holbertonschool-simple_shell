@@ -6,7 +6,7 @@
 char **paress(char *line)
 {
     int size = 64, pos = 0;
-    char *token, **token_sajil;
+    char *token;
     char **tokens = malloc(size * sizeof(char *));
 
     if (!tokens)
@@ -23,11 +23,9 @@ char **paress(char *line)
         if (pos >= size)
         {
             size += 64;
-            token_sajil = tokens;
             tokens = realloc(tokens, size * sizeof(char *));
             if (!tokens)
             {
-                free(token_sajil);
                 fprintf(stderr, "hsh: allocation erreor\n");
                 exit(EXIT_FAILURE);
             }
@@ -35,5 +33,6 @@ char **paress(char *line)
         token = strtok(NULL, TOK_DELIM);
     }
     tokens[pos] = NULL;
+    free(token);
     return (tokens);
 }
