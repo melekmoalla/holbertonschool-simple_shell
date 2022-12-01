@@ -13,7 +13,6 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
 
     do
     {
-        printf("m");
         line = read_line();
         args = paress(line);
         wa9if = execute(args);
