@@ -15,7 +15,7 @@ int my_cd(char **args)
     {
         if (chdir(args[1]) != 0)
         {
-            perror("hsh");
+            perror("hsh: cd");
         }
     }
     return (1);

@@ -33,6 +33,5 @@ char **paress(char *line)
         token = strtok(NULL, TOK_DELIM);
     }
     tokens[pos] = NULL;
-    free(token);
     return (tokens);
 }
