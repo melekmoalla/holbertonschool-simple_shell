@@ -3,7 +3,8 @@
 int launch(char **args)
 {
     pid_t pid;
-    int status;
+    int status = 0;
+
     pid = fork();
     if (pid == 0)
     {
@@ -22,7 +23,6 @@ int launch(char **args)
         while (!WIFEXITED(status) && !WIFSIGNALED(status))
         {
             waitpid(pid, &status, WUNTRACED);
-            
         }
     }
     return (1);

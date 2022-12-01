@@ -1,10 +1,5 @@
 #include "simple.h"
 
-int my_exit(__attribute__((unused)) char **args)
-{
-    return (0);
-}
-
 int my_cd(char **args)
 {
     if (args[1] == NULL)
@@ -28,12 +23,16 @@ int my_exit_ls(__attribute__((unused)) char **args)
     return (1);
 }
 
+int my_exit(__attribute__((unused)) char **args)
+{
+    return (0);
+}
+
 int execute(char **args)
 {
     op_t ops[] = {
         {"cd", my_cd},
-        {"exit", my_exit},
-        {"ls", my_exit_ls}};
+        {"exit", my_exit}};
 
     int i;
     if (args[0] == NULL)
