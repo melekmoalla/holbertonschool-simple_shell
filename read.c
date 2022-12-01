@@ -31,8 +31,13 @@ char *read_line(void)
 
         if (pos >= size)
         {
-            size = 2 * 1024;
+            size += 1024;
             buf = realloc(buf, size);
+            if (!buf)
+            {
+                fprintf(stderr, "lsh: allocation error\n");
+                exit(EXIT_FAILURE);
+            }
         }
     }
 }

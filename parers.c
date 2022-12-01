@@ -22,7 +22,7 @@ char **paress(char *line)
 
         if (pos >= size)
         {
-            size = 2 * 64;
+            size += 64;
             token_sajil = tokens;
             tokens = realloc(tokens, size * sizeof(char *));
             if (!tokens)
