@@ -19,5 +19,6 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
         free(line);
         free(args);
     } while (wa9if);
+    free(args);
     return (EXIT_SUCCESS);
 }

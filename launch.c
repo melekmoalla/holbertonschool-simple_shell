@@ -22,6 +22,7 @@ int launch(char **args)
         while (!WIFEXITED(status) && !WIFSIGNALED(status))
         {
             waitpid(pid, &status, WUNTRACED);
+            
         }
     }
     return (1);
