@@ -13,8 +13,6 @@
 
 # Instructions</h3>
 
-```
-### Instructions
 
 - You must program a mini `Unix shell`, try to focus on something simple like [BusyBox](https://en.wikipedia.org/wiki/BusyBox).
 - This interpreter must display at least a simple `$` and wait until you type a command line which will be validated by pressing enter.
@@ -33,8 +31,7 @@
   - mkdir
   - exit
 - You must manage the program interruption `Ctrl + D`.
-- The project has to be written in a compiled language (like C, Rust, Go or other), **interpreted languages (like Perl and others) are not allowed**.
-- The code must respect the [good practices](https://public.01-edu.org/subjects/good-practices/)
+- The project has to be written in a compiled language like C
 
 This project will help you learn about:
 
@@ -46,6 +43,8 @@ This project will help you learn about:
 - Commands syntax
 - Scripting language
 
+
+```
 ```
 
 # Test Compilation
