@@ -15,8 +15,8 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
     {
         line = read_line();
         args = paress(line);
-        free(line);
         wa9if = execute(args);
+        free(line);
         free(args);
     } while (wa9if);
     return (EXIT_SUCCESS);
