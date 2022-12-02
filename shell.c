@@ -6,19 +6,58 @@
 #include <string.h>
 #include "simple.h"
 
-int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
+int main()
 {
-    char *line, **args;
-    int wa9if;
+    char buffer[32];
+    pid_t id;
+    size_t size = 32;
+    char *sentence = buffer;
+    char **parsedStr;
+    int numOfCommands = 0, lengthOfCommands = 0, parsedStrLen;
 
-    do
+    while (1)
     {
-        line = read_line();
-        args = paress(line);
-        wa9if = execute(args);
-        
-        free(args);
-        free(line);
-    } while (wa9if);
-    return (EXIT_SUCCESS);
+
+        if (getline(&sentence, &size, stdin) != -1)
+        {
+            parsedStrLen = numOfWords(sentence);
+            lengthOfCommands += (int)(strlen(sentence));
+            numOfCommands++;
+            if (parsedStrLen > 0)
+            {
+                parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
+                if (parsedStr == NULL)
+                {
+                    fprintf(stderr, "malloc failed");
+                    exit(1);
+                }
+                parsedStr[parsedStrLen] = NULL;
+                parseString(sentence, parsedStr);
+
+                id = fork();
+                if (id < 0)
+                {
+                    perror("ERR");
+                    freeArr(parsedStr);
+                    exit(1);
+                }
+                else if (id == 0)
+                {
+                    if (strcmp(parsedStr[0], "exit") == 0)
+                    {
+
+                        exit(0);
+                    }
+                    exeCommand(parsedStr);
+                    freeArr(parsedStr);
+                }
+                else
+                {
+                    wait(NULL);
+                    freeArr(parsedStr);
+                }
+            }
+        }
+    }
+    return 0;
 }

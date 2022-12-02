@@ -1,29 +1,13 @@
 #include "simple.h"
 
-int launch(char **args)
+int numOfWords(const char sentence[])
 {
-    pid_t pid;
-    int status = 0;
-
-    pid = fork();
-    if (pid == 0)
+    int i = 0, wordCounter = 0;
+    while (sentence[i] != '\n')
     {
-        if (execvp(args[0], args) == -1)
-        {
-            perror("hsh");
-        }
-        exit(EXIT_FAILURE);
+        if (sentence[i] != ' ' && (sentence[i + 1] == ' ' || sentence[i + 1] == '\n'))
+            wordCounter++;
+        i++;
     }
-    else if (pid < 0)
-    {
-        perror("hsh2");
-    }
-    else
-    {
-        while (!WIFEXITED(status) && !WIFSIGNALED(status))
-        {
-            waitpid(pid, &status, WUNTRACED);
-        }
-    }
-    return (1);
+    return wordCounter;
 }

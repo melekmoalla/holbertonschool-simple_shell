@@ -1,37 +1,32 @@
 #include "simple.h"
 
-#define TOK 64
-#define TOK_DELIM " \t\r\n\a"
-
-char **paress(char *line)
+void parseString(char sentence[], char **parsedStr)
 {
-    int size = 64, pos = 0;
-    char *token;
-    char **tokens = malloc(size * sizeof(char *));
+    long unsigned int i;
+    char tmpWord[SENTENCE_LEN];
+    int tmpIndex = 0, parsedIndex = 0;
 
-    if (!tokens)
+    for (i = 0; i < strlen(sentence); i++)
     {
-        fprintf(stderr, "hsh: allocation erreor\n");
-        exit(EXIT_FAILURE);
-    }
-    token = strtok(line, TOK_DELIM);
-    while (token != NULL)
-    {
-        tokens[pos] = token;
-        pos++;
-
-        if (pos >= size)
+        if (sentence[i] != ' ' && sentence[i] != '\n')
         {
-            size += 64;
-            tokens = realloc(tokens, size * sizeof(char *));
-            if (!tokens)
-            {
-                fprintf(stderr, "hsh: allocation erreor\n");
-                exit(EXIT_FAILURE);
-            }
+            tmpWord[tmpIndex] = sentence[i];
+            tmpIndex++;
         }
-        token = strtok(NULL, TOK_DELIM);
+
+        else if ((sentence[i] == ' ' || sentence[i] == '\n') && tmpIndex > 0)
+        {
+            tmpWord[tmpIndex] = '\0';
+            parsedStr[parsedIndex] = (char *)malloc((strlen(tmpWord)) + 1);
+            if (parsedStr[parsedIndex] == NULL)
+            {
+                freeArr(parsedStr);
+                fprintf(stderr, "malloc failed");
+                exit(1);
+            }
+            strcpy(parsedStr[parsedIndex], tmpWord);
+            parsedIndex++;
+            tmpIndex = 0;
+        }
     }
-    tokens[pos] = NULL;
-    return (tokens);
 }

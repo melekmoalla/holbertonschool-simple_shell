@@ -1,50 +1,39 @@
 #include "simple.h"
 
-int my_cd(char **args)
+void exeCommand(char **command)
 {
-    if (args[1] == NULL)
+    if (strcmp(command[0], "cd") == 0)
     {
-        fprintf(stderr, "hsh: expected argument to \"cd\" \n");
+        if (command[1] == NULL)
+        {
+            fprintf(stderr, "hsh: expected argument to \"cd\" \n");
+            freeArr(command);
+            exit(0);
+        }
+        else
+        {
+            if (chdir(command[1]) != 0)
+            {
+                printf("hsh: cd");
+            }
+            freeArr(command);
+            exit(0);
+        }
+    }
+    if (strcmp(command[0], "exit") == 0)
+    {
+        freeArr(command);
+        exit(0);
+    }
+    else if (execvp(command[0], command) != -1)
+    {
+        freeArr(command);
+        exit(0);
     }
     else
     {
-        if (chdir(args[1]) != 0)
-        {
-            perror("hsh: cd");
-        }
+        perror("command not found");
+        freeArr(command);
+        exit(1);
     }
-    return (1);
-}
-
-int my_exit_ls(__attribute__((unused)) char **args)
-{
-
-    fprintf(stderr, "/hsh: No such file or directory \n");
-    return (1);
-}
-
-int my_exit(__attribute__((unused)) char **args)
-{
-    return (0);
-}
-
-int execute(char **args)
-{
-    op_t ops[] = {
-        {"cd", my_cd},
-        {"exit", my_exit}};
-
-    int i;
-    if (args[0] == NULL)
-    {
-        return (1);
-    }
-    for (i = 0; i < 2; i++)
-    {
-        if (strcmp(args[0], ops[i].opp) == 0)
-        {
-            return (ops[i].f(args));
-        }
-    }
-    return (launch(args));
 }

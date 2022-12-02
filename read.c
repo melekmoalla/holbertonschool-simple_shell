@@ -2,8 +2,9 @@
 
 char *read_line(void)
 {
-    char *line = NULL;
-    size_t bufsize = 0;
+    char buffer[32];
+    char *line = buffer;
+    size_t bufsize = 32;
     if (getline(&line, &bufsize, stdin) == -1)
     {
         if (feof(stdin))

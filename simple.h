@@ -7,15 +7,13 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct op
-{
-    char *opp;
-    int (*f)(char **);
-} op_t;
 
-int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv);
-char *read_line(void);
-char **paress(char *line);
-int execute(char **args);
-int launch(char **args);
+#define SENTENCE_LEN 511
+#define PATH_MAX 512
+
+int numOfWords(const char sentence[]);
+void parseString(char sentence[], char **parsedStr);
+void freeArr(char **parsedStr);
+void exeCommand(char **command);
+
 #endif
