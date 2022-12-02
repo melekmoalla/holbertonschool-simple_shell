@@ -30,7 +30,7 @@ int main()
                 if (parsedStr == NULL)
                 {
                     fprintf(stderr, "malloc failed");
-                    exit(1);
+                    return (1);
                 }
                 parsedStr[parsedStrLen] = NULL;
                 parseString(sentence, parsedStr);
@@ -40,13 +40,12 @@ int main()
                 {
                     perror("ERR");
                     freeArr(parsedStr);
-                    exit(1);
+                    return (1);
                 }
                 else if (id == 0)
                 {
                     if (strcmp(parsedStr[0], "exit") == 0)
                     {
-
                         break;
                     }
                     exeCommand(parsedStr);
@@ -54,10 +53,10 @@ int main()
                 }
                 else
                 {
-                    while (!WIFEXITED(status) && !WIFSIGNALED(status))
+                    do
                     {
                         waitpid(id, &status, WUNTRACED);
-                    }
+                    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
                     freeArr(parsedStr);
                 }
             }
