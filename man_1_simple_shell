@@ -1,0 +1,37 @@
+.\" Manpage for man_1_simple_shell.
+.\" Contact melekmoalla2468@gmail.com to correct errors or typos.
+.TH  man_1_simple_shell "1 desember 2022" "1.0" "man_1_simple_shell man page"
+.SH PROLOG
+    This manual page is part of the POSIX Programmer's Manual.  The
+       Linux implementation of this interface may differ (consult the
+       corresponding Linux manual page for details of Linux behavior),
+       or the interface may not be implemented on Linux.
+.SH NAME
+    simple_shell
+.SH SYNOPSIS
+    [options] [command_string | file]
+.SH DESCRIPTION 
+    this Simple Shell is a small simple shell built in C. Supported 
+    Supported built-in commands are listed below, otherwise this shell 
+    is capable of searching for and executing programs on the PATH.
+.SH DESCRIPTION
+    there are many option listed below are specific to interpreted with 
+    this peogram if the command call.
+.SH COMMANDS
+    ls: Display the contant of the directory.
+    pwd: Dispaly the path.
+    mv: Move the file.
+    echo: Display the content of whta we wrote.
+    mkdir: create directories.
+    touch: create a file.
+    ...
+.SH COLOPHON         top
+       This page is part of release 5.13 of the Linux man-pages project.
+       A description of the project, information about reporting bugs,
+       and the latest version of this page, can be found at
+       https://www.kernel.org/doc/man-pages/.
+
+.SH Author
+       Melek Moalla
+
+GNU                            2022-11-8                      simple_shell
