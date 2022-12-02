@@ -54,10 +54,10 @@ int main()
                 }
                 else
                 {
-                    do
+                    while (!WIFEXITED(status) && !WIFSIGNALED(status))
                     {
-                        id = waitpid(id, &status, WUNTRACED);
-                    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+                        waitpid(id, &status, WUNTRACED);
+                    }
                     freeArr(parsedStr);
                 }
             }
