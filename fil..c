@@ -14,7 +14,6 @@
 #define SENTENCE_LEN 511
 #define PATH_MAX 512
 
-void printPrompt();
 char *getUserName();
 int numOfWords(const char sentence[]);
 void parseString(char sentence[], char **parsedStr);
@@ -33,7 +32,7 @@ int main()
 
     while (1)
     {
-        printPrompt();
+
         if (getline(&sentence, &size, stdin) != -1)
         {
             parsedStrLen = numOfWords(sentence);
@@ -77,15 +76,6 @@ int main()
         }
     }
     return 0;
-}
-
-void printPrompt()
-{
-    char *userName = getUserName();
-    char currentDir[PATH_MAX];
-
-    getcwd(currentDir, sizeof(currentDir));
-    printf("%s@%s>", userName, currentDir);
 }
 
 char *getUserName()
