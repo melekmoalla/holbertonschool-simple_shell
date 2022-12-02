@@ -46,7 +46,7 @@ int main()
                     if (strcmp(parsedStr[0], "exit") == 0)
                     {
 
-                        exit(0);
+                        break;
                     }
                     exeCommand(parsedStr);
                     freeArr(parsedStr);
@@ -59,5 +59,5 @@ int main()
             }
         }
     }
-    return 0;
+    return (EXIT_SUCCESS);
 }
