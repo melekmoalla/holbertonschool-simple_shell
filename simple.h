@@ -7,10 +7,10 @@
 #include <stdio.h>
 #include <string.h>
 
-
 #define SENTENCE_LEN 511
 #define PATH_MAX 512
 
+int main();
 int numOfWords(const char sentence[]);
 void parseString(char sentence[], char **parsedStr);
 void freeArr(char **parsedStr);
