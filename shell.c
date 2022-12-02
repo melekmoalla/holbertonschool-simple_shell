@@ -14,7 +14,7 @@ int main()
     size_t size = 32;
     char *sentence = buffer;
     char **parsedStr;
-    int numOfCommands = 0, lengthOfCommands = 0, parsedStrLen;
+    int parsedStrLen;
 
     while (1)
     {
@@ -22,8 +22,6 @@ int main()
         if (getline(&sentence, &size, stdin) != -1)
         {
             parsedStrLen = numOfWords(sentence);
-            lengthOfCommands += (int)(strlen(sentence));
-            numOfCommands++;
             if (parsedStrLen > 0)
             {
                 parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
@@ -36,20 +34,21 @@ int main()
                 parseString(sentence, parsedStr);
 
                 id = fork();
-                if (id < 0)
-                {
-                    perror("ERR");
-                    freeArr(parsedStr);
-                    return (1);
-                }
-                else if (id == 0)
+                if (id == 0)
                 {
                     if (strcmp(parsedStr[0], "exit") == 0)
                     {
+                        freeArr(parsedStr);
                         break;
                     }
                     exeCommand(parsedStr);
                     freeArr(parsedStr);
+                }
+                else if (id < 0)
+                {
+                    perror("ERR");
+                    freeArr(parsedStr);
+                    return (1);
                 }
                 else
                 {
