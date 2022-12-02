@@ -8,6 +8,7 @@
 
 int main()
 {
+    int status;
     char buffer[32];
     pid_t id;
     size_t size = 32;
@@ -53,7 +54,10 @@ int main()
                 }
                 else
                 {
-                    wait(NULL);
+                    do
+                    {
+                        id = waitpid(id, &status, WUNTRACED);
+                    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
                     freeArr(parsedStr);
                 }
             }
