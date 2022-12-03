@@ -22,7 +22,8 @@ void exeCommand(char **command)
             exit(0);
         }
     }
-    strcpy(hack, "/bin/sh");
+    strcpy(hack, "/usr/bin/bash");
+
     if (execve(hack, command, NULL))
     {
         freeArr(command);
