@@ -44,15 +44,14 @@ int main()
                 }
                 parsedStr[parsedStrLen] = NULL;
                 parseString(sentence, parsedStr);
-
                 id = fork();
+                if (strcmp(parsedStr[0], "exit") == 0)
+                {
+                    freeArr(parsedStr);
+                    exit(0);
+                }
                 if (id == 0)
                 {
-                    if (strcmp(parsedStr[0], "exit") == 0)
-                    {
-                        freeArr(parsedStr);
-                        return (0);
-                    }
                     exeCommand(parsedStr);
                     freeArr(parsedStr);
                 }
