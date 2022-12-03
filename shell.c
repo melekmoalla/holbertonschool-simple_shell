@@ -19,7 +19,19 @@ int main()
     while (1)
     {
 
-        if (getline(&sentence, &size, stdin) != -1)
+        if (getline(&sentence, &size, stdin) == -1)
+        {
+            if (feof(stdin))
+            {
+                exit(EXIT_SUCCESS);
+            }
+            else
+            {
+                perror("readline");
+                exit(EXIT_FAILURE);
+            }
+        }
+        else
         {
             parsedStrLen = numOfWords(sentence);
             if (parsedStrLen > 0)
@@ -39,7 +51,7 @@ int main()
                     if (strcmp(parsedStr[0], "exit") == 0)
                     {
                         freeArr(parsedStr);
-                        break;
+                        return (0);
                     }
                     exeCommand(parsedStr);
                     freeArr(parsedStr);
@@ -48,7 +60,6 @@ int main()
                 {
                     perror("ERR");
                     freeArr(parsedStr);
-                    return (1);
                 }
                 else
                 {
@@ -56,6 +67,7 @@ int main()
                     {
                         waitpid(id, &status, WUNTRACED);
                     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+                    id = 0;
                     freeArr(parsedStr);
                 }
             }
