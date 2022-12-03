@@ -2,8 +2,7 @@
 
 void exeCommand(char **command)
 {
-    char *envp[] = {(char *)"printenv PATH", 0};
-    char cmd[100];
+    char hack[200];
 
     if (strcmp(command[0], "cd") == 0)
     {
@@ -23,8 +22,8 @@ void exeCommand(char **command)
             exit(0);
         }
     }
-    strcpy(cmd, "/bin/bash");
-    if (execve(cmd, command, envp))
+    strcpy(hack, "/bin/sh");
+    if (execve(hack, command, NULL))
     {
         freeArr(command);
         exit(EXIT_FAILURE);
