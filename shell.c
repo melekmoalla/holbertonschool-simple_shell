@@ -26,7 +26,7 @@ int main()
             }
             else
             {
-                return (EXIT_FAILURE);
+                exit(0);
             }
         }
         else
