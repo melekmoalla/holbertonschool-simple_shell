@@ -10,9 +10,9 @@ int main(void)
 	char buffer[32], *sentence = buffer, **parsedStr;
 	while (1)
 	{
-		if (check(sentence) == 4)
+		if (check(sentence) == 1)
 		{
-			return (0);
+			exit(0);
 		}
 		else
 		{
@@ -45,7 +45,7 @@ int main(void)
 					freeArr(parsedStr);
 					if (a == 1)
 					{
-						return (127);
+						exit(127);
 					}
 				}
 				else

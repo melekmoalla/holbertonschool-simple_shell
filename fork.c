@@ -9,18 +9,17 @@
 int check(char *sentence)
 {
 	size_t size = 32;
-
 	if (getline(&sentence, &size, stdin) == -1)
 	{
 		if (feof(stdin))
 		{
-			exit(EXIT_SUCCESS);
+			exit(2);
 		}
 		else
 		{
 			wait(NULL);
-			exit(4);
+			return (1);
 		}
 	}
-	return(0);
+	return (0);
 }
