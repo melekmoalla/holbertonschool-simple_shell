@@ -66,10 +66,7 @@ int main()
                     }
                     else
                     {
-                        do
-                        {
-                            waitpid(id, &status, WUNTRACED);
-                        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+                        wait(&status);
                         freeArr(parsedStr);
                     }
                 }
