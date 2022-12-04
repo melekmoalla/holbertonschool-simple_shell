@@ -6,12 +6,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-#include <limits.h>
 
 #define SENTENCE_LEN 511
 #define PATH_MAX 512
@@ -21,6 +15,6 @@ int numOfWords(const char sentence[]);
 void parseString(char sentence[], char **parsedStr);
 void freeArr(char **parsedStr);
 void exeCommand(char **command);
-int execvekernel(char *buf, const char *file, char *const argv[]);
+
 
 #endif

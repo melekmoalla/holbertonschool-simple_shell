@@ -21,13 +21,13 @@ void exeCommand(char **command)
 			if (chdir(command[1]) != 0)
 			{
 				printf("hsh: cd");
+				freeArr(command);
+				exit(0);
 			}
-			freeArr(command);
-			exit(0);
 		}
 	}
 
-	if (execvekernel(*command, command[0], command))
+	else if (execvp(command[0], command) != -1)
 	{
 		freeArr(command);
 		exit(0);
