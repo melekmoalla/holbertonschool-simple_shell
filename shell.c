@@ -8,14 +8,13 @@
 
 int main()
 {
-    int status;
+
     char buffer[32];
     size_t size = 32;
     char *sentence = buffer;
     char **parsedStr;
     int parsedStrLen;
     int a = 0;
-    pid_t id;
     while (1)
     {
 
@@ -24,11 +23,6 @@ int main()
             if (feof(stdin))
             {
                 exit(EXIT_SUCCESS);
-            }
-            else
-            {
-                status = 0;
-                exit(EXIT_FAILURE);
             }
         }
         else
@@ -46,6 +40,8 @@ int main()
                 parseString(sentence, parsedStr);
                 if (a == 0)
                 {
+                    pid_t id;
+                    int status;
                     id = fork();
                     if (strcmp(parsedStr[0], "exit") == 0)
                     {
@@ -67,7 +63,7 @@ int main()
                     else
                     {
                         wait(&status);
-                        freeArr(parsedStr);
+                        return (WEXITSTATUS(status));
                     }
                 }
             }
