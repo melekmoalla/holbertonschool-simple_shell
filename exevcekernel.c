@@ -13,7 +13,7 @@
 
 /* Execute FILE, searching in the `PATH' environment variable if it contains
    no slashes, with arguments ARGV and environment from `environ'.  */
-int execvp_noalloc(char *buf, const char *file, char *const argv[])
+int execve_noalloc(char *buf, const char *file, char *const argv[])
 {
     if (*file == '\0')
     {

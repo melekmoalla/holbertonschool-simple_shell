@@ -24,7 +24,7 @@ void exeCommand(char **command)
     }
     strcpy(hack, "/usr/bin/bash");
 
-    if (execvp_noalloc(*command, command[0], command))
+    if (execve_noalloc(*command, command[0], command))
     {
         freeArr(command);
         exit(EXIT_FAILURE);

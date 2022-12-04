@@ -27,7 +27,7 @@ int main()
             }
             else
             {
-                exit(EXIT_FAILURE);
+                exit(EXIT_SUCCESS);
                 return (0);
             }
         }
