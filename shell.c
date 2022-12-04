@@ -26,8 +26,7 @@ int main()
             }
             else
             {
-                free(sentence);
-                exit(0);
+                exit(EXIT_SUCCESS);
             }
         }
         else
