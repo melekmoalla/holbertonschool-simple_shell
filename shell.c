@@ -40,7 +40,7 @@ int main()
                 if (strcmp(parsedStr[0], "exit") == 0)
                 {
                     freeArr(parsedStr);
-                    exit(0);
+                    exit(2);
                     break;
                 }
                 if (id == 0)
