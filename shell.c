@@ -20,7 +20,8 @@ int main()
             else
             {
                 perror("readline");
-                exit(EXIT_FAILURE);
+                exit(0);
+                break;
             }
         }
         else
