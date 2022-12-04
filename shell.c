@@ -8,7 +8,6 @@ int main(void)
 	int parsedStrLen, a;
 	pid_t id;
 	char buffer[32], *sentence = buffer, **parsedStr;
-
 	while (1)
 	{
 		if (check(sentence) == 2)
@@ -31,22 +30,23 @@ int main(void)
 				id = fork();
 				if (strcmp(parsedStr[0], "exit") == 0)
 				{
+					freeArr(parsedStr);
 					return (0);
 				}
 				else if (id < 0)
 				{
 					perror("ERR");
 					freeArr(parsedStr);
-					exit(1);
+					return(1);
 				}
 				else if (id == 0)
 				{
 					a = exeCommand(parsedStr);
 					freeArr(parsedStr);
-				}
-				if (a == 1)
-				{
-					return (127);
+					if (a == 1)
+					{
+						return (127);
+					}
 				}
 				else
 				{
@@ -56,5 +56,5 @@ int main(void)
 			}
 		}
 	}
-	return (0);
+	exit(0);
 }

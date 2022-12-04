@@ -19,8 +19,8 @@ int check(char *sentence)
 		else
 		{
 			wait(NULL);
-			exit(2);
+			exit(1);
 		}
 	}
-	exit(0);
+	return(0);
 }
