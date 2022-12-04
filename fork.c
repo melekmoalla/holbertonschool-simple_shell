@@ -14,12 +14,12 @@ int check(char *sentence)
 	{
 		if (feof(stdin))
 		{
-			exit(2);
+			exit(EXIT_SUCCESS);
 		}
 		else
 		{
 			wait(NULL);
-			exit(1);
+			exit(4);
 		}
 	}
 	return(0);
