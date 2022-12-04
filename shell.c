@@ -24,14 +24,14 @@ int main(void)
 				if (parsedStr == NULL)
 				{
 					fprintf(stderr, "malloc failed");
-					return (1);
+					exit(1);
 				}
 				parsedStr[parsedStrLen] = NULL;
 				parseString(sentence, parsedStr);
 				id = fork();
 				if (strcmp(parsedStr[0], "exit") == 0)
 				{
-					return (0);
+					exit(0);
 				}
 				else if (id < 0)
 				{
@@ -56,5 +56,5 @@ int main(void)
 			}
 		}
 	}
-	return (0);
+	exit(0);
 }
