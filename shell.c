@@ -31,7 +31,6 @@ int main(void)
 				id = fork();
 				if (strcmp(parsedStr[0], "exit") == 0)
 				{
-					freeArr(parsedStr);
 					return (0);
 				}
 				else if (id < 0)
@@ -44,15 +43,15 @@ int main(void)
 				{
 					a = exeCommand(parsedStr);
 					freeArr(parsedStr);
-					if (a == 1)
-					{
-						return (127);
-					}
 				}
 				else
 				{
 					wait(NULL);
 					freeArr(parsedStr);
+				}
+				if (a == 1)
+				{
+					exit(127);
 				}
 			}
 		}

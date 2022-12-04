@@ -38,5 +38,5 @@ int exeCommand(char **command)
 		freeArr(command);
 		exit(1);
 	}
-	return (1);
+	return (0);
 }
