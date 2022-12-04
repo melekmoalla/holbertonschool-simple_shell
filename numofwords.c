@@ -12,8 +12,7 @@ int numOfWords(const char sentence[])
 
 	while (sentence[i] != '\n')
 	{
-		if (sentence[i] != ' ' && (sentence[i + 1] == ' ' ||
-								   sentence[i + 1] == '\n'))
+		if (sentence[i] != ' ' && (sentence[i + 1] == ' ' || sentence[i + 1] == '\n'))
 			wordCounter++;
 		i++;
 	}
