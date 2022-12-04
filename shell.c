@@ -31,6 +31,7 @@ int main(void)
 				id = fork();
 				if (strcmp(parsedStr[0], "exit") == 0)
 				{
+					freeArr(parsedStr);
 					exit(0);
 				}
 				else if (id < 0)
