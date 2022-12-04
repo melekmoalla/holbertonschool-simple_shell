@@ -15,7 +15,11 @@ int main(void)
 				exit(EXIT_SUCCESS);
 			else
 			{
-				exit(0);
+				do
+				{
+					waitpid(id, &status, WUNTRACED);
+				} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+				return (0);
 			}
 		}
 		else
@@ -53,7 +57,6 @@ int main(void)
 					{
 						waitpid(id, &status, WUNTRACED);
 					} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-					id = 0;
 					freeArr(parsedStr);
 				}
 			}
