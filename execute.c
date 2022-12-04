@@ -30,13 +30,13 @@ int exeCommand(char **command)
 	else if (execvp(command[0], command) != -1)
 	{
 		freeArr(command);
-		exit(0);
+		return(0);
 	}
 	else
 	{
 		perror("command not found");
 		freeArr(command);
-		exit(1);
+		return(1);
 	}
 	return (0);
 }

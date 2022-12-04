@@ -24,15 +24,14 @@ int main(void)
 				if (parsedStr == NULL)
 				{
 					fprintf(stderr, "malloc failed");
-					exit(1);
+					return (1);
 				}
 				parsedStr[parsedStrLen] = NULL;
 				parseString(sentence, parsedStr);
 				id = fork();
 				if (strcmp(parsedStr[0], "exit") == 0)
 				{
-					freeArr(parsedStr);
-					exit(0);
+					return (0);
 				}
 				else if (id < 0)
 				{
@@ -45,17 +44,17 @@ int main(void)
 					a = exeCommand(parsedStr);
 					freeArr(parsedStr);
 				}
+				if (a == 1)
+				{
+					return (127);
+				}
 				else
 				{
 					wait(NULL);
 					freeArr(parsedStr);
 				}
-				if (a == 1)
-				{
-					exit(127);
-				}
 			}
 		}
 	}
-	exit(0);
+	return (0);
 }
