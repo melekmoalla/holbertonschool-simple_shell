@@ -1,34 +1,26 @@
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include "simple.h"
 
 int main()
 {
-
+    int status;
     char buffer[32];
+    pid_t id;
     size_t size = 32;
     char *sentence = buffer;
     char **parsedStr;
     int parsedStrLen;
-    int a = 0;
-    pid_t id;
-    int status;
     while (1)
     {
-
         if (getline(&sentence, &size, stdin) == -1)
         {
             if (feof(stdin))
             {
                 exit(EXIT_SUCCESS);
             }
+            else
             {
-                wait(&status);
-                return (0);
+                perror("readline");
+                exit(EXIT_FAILURE);
             }
         }
         else
@@ -44,48 +36,31 @@ int main()
                 }
                 parsedStr[parsedStrLen] = NULL;
                 parseString(sentence, parsedStr);
-                if (a == 0)
+                id = fork();
+                if (strcmp(parsedStr[0], "exit") == 0)
                 {
-
-                    id = fork();
-                    if (strcmp(parsedStr[0], "exit") == 0)
+                    freeArr(parsedStr);
+                    exit(0);
+                    break;
+                }
+                if (id == 0)
+                {
+                    exeCommand(parsedStr);
+                    freeArr(parsedStr);
+                }
+                else if (id < 0)
+                {
+                    perror("ERR");
+                    freeArr(parsedStr);
+                }
+                else
+                {
+                    do
                     {
-                        freeArr(parsedStr);
-                        exit(0);
-                        break;
-                    }
-
-                    if (id == 0)
-                    {
-                        exeCommand(parsedStr);
-                        freeArr(parsedStr);
-                        return (1);
-                    }
-                    else if (id < 0)
-                    {
-                        perror("ERR");
-                        freeArr(parsedStr);
-                    }
-                    else
-                    {
-                        do
-                        {
-                            waitpid(id, &status, WUNTRACED);
-                        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-                        if (WEXITSTATUS(status))
-                        {
-                            int p = (WEXITSTATUS(status));
-                            if (p == 0)
-                            {
-                                printf("s%d", p);
-                            }
-                            else
-                            {
-                                return (0);
-                            }
-                        }
-                        freeArr(parsedStr);
-                    }
+                        waitpid(id, &status, WUNTRACED);
+                    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+                    id = 0;
+                    freeArr(parsedStr);
                 }
             }
         }
