@@ -15,6 +15,7 @@ int main()
     char **parsedStr;
     int parsedStrLen;
     int a = 0;
+    pid_t id;
     while (1)
     {
 
@@ -45,7 +46,6 @@ int main()
                 parseString(sentence, parsedStr);
                 if (a == 0)
                 {
-                    pid_t id;
                     id = fork();
                     if (strcmp(parsedStr[0], "exit") == 0)
                     {
