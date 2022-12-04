@@ -24,6 +24,10 @@ int main()
             {
                 exit(EXIT_SUCCESS);
             }
+            {
+                wait(&status);
+                return (WEXITSTATUS(status));
+            }
         }
         else
         {
