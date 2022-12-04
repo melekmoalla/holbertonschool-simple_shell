@@ -1,23 +1,19 @@
 #include "simple.h"
-
+/**
+ * main - master fonction
+ * Return: 0
+ **/
 int main(void)
 {
-	int status, parsedStrLen;
+	int parsedStrLen, a;
 	pid_t id;
-	size_t size = 32;
 	char buffer[32], *sentence = buffer, **parsedStr;
 
 	while (1)
 	{
-		if (getline(&sentence, &size, stdin) == -1)
+		if (check(sentence) == 2)
 		{
-			if (feof(stdin))
-				exit(EXIT_SUCCESS);
-			else
-			{
-				wait(NULL);
-				return (0);
-			}
+			break;
 		}
 		else
 		{
@@ -38,26 +34,28 @@ int main(void)
 					freeArr(parsedStr);
 					return (0);
 				}
-				if (id == 0)
-				{
-					exeCommand(parsedStr);
-					freeArr(parsedStr);
-				}
 				else if (id < 0)
 				{
 					perror("ERR");
 					freeArr(parsedStr);
+					exit(1);
+				}
+				else if (id == 0)
+				{
+					a = exeCommand(parsedStr);
+					freeArr(parsedStr);
+					if (a == 1)
+					{
+						return (127);
+					}
 				}
 				else
 				{
-					do
-					{
-						waitpid(id, &status, WUNTRACED);
-					} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+					wait(NULL);
 					freeArr(parsedStr);
 				}
 			}
 		}
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
