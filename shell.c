@@ -15,7 +15,6 @@ int main(void)
 				exit(EXIT_SUCCESS);
 			else
 			{
-				free(sentence);
 				exit(0);
 			}
 		}
