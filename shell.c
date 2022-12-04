@@ -15,6 +15,7 @@ int main(void)
 				exit(EXIT_SUCCESS);
 			else
 			{
+				free(sentence);
 				exit(0);
 			}
 		}
@@ -35,8 +36,7 @@ int main(void)
 				if (strcmp(parsedStr[0], "exit") == 0)
 				{
 					freeArr(parsedStr);
-					exit(2);
-					break;
+					return (0);
 				}
 				if (id == 0)
 				{
