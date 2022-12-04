@@ -26,6 +26,7 @@ int main()
             }
             else
             {
+                id = 0;
                 exit(EXIT_FAILURE);
             }
         }
