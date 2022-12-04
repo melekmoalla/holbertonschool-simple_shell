@@ -19,7 +19,6 @@ int main()
             }
             else
             {
-                perror("readline");
                 exit(0);
                 break;
             }
