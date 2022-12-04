@@ -28,7 +28,7 @@ int main()
             else
             {
                 id = 0;
-                exit(EXIT_FAILURE);
+                ereturn(0);
             }
         }
         else
