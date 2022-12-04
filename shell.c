@@ -28,7 +28,7 @@ int main()
             else
             {
                 id = 0;
-                ereturn(0);
+                return (0);
             }
         }
         else
