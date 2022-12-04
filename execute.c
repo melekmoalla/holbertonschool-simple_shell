@@ -2,7 +2,6 @@
 
 void exeCommand(char **command)
 {
-    char hack[200];
 
     if (strcmp(command[0], "cd") == 0)
     {
@@ -22,7 +21,6 @@ void exeCommand(char **command)
             exit(0);
         }
     }
-    strcpy(hack, "/usr/bin/bash");
 
     if (execve_noalloc(*command, command[0], command))
     {
