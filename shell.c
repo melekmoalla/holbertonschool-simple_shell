@@ -15,11 +15,7 @@ int main(void)
 				exit(EXIT_SUCCESS);
 			else
 			{
-				do
-				{
-					waitpid(id, &status, WUNTRACED);
-				} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-				return (0);
+				wait(NULL);
 			}
 		}
 		else
