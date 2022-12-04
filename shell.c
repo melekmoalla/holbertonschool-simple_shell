@@ -28,7 +28,7 @@ int main()
             }
             {
                 wait(&status);
-                return (WEXITSTATUS(status));
+                return (0);
             }
         }
         else
@@ -59,6 +59,7 @@ int main()
                     {
                         exeCommand(parsedStr);
                         freeArr(parsedStr);
+                        return (1);
                     }
                     else if (id < 0)
                     {
@@ -67,9 +68,23 @@ int main()
                     }
                     else
                     {
-                        wait(&status);
+                        do
+                        {
+                            waitpid(id, &status, WUNTRACED);
+                        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+                        if (WEXITSTATUS(status))
+                        {
+                            int p = (WEXITSTATUS(status));
+                            if (p == 0)
+                            {
+                                printf("s%d", p);
+                            }
+                            else
+                            {
+                                return (0);
+                            }
+                        }
                         freeArr(parsedStr);
-                        return (WEXITSTATUS(status));
                     }
                 }
             }
