@@ -68,6 +68,7 @@ int main()
                     else
                     {
                         wait(&status);
+                        freeArr(parsedStr);
                         return (WEXITSTATUS(status));
                     }
                 }
