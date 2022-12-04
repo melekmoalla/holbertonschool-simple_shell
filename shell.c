@@ -27,7 +27,7 @@ int main()
             }
             else
             {
-                id = 0;
+                status = 0;
                 exit(EXIT_FAILURE);
             }
         }
