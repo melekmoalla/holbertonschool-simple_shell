@@ -1,30 +1,25 @@
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include "simple.h"
-int main()
+/**
+ * main - master fonction
+ * Return: 0
+ */
+
+int main(void)
 {
-	int status, a;
-	char buffer[32];
+	int status, a, parsedStrLen;
 	pid_t id;
 	size_t size = 32;
-	char *sentence = buffer;
-	char **parsedStr;
-	int parsedStrLen;
+	char buffer[32], *sentence = buffer, **parsedStr;
 
 	while (1)
 	{
 		if (getline(&sentence, &size, stdin) == -1)
 		{
 			if (feof(stdin))
-			{
 				exit(EXIT_SUCCESS);
-			}
 			else
 			{
+				sentence = NULL;
 				perror("readline");
 				exit(1);
 			}
@@ -47,19 +42,18 @@ int main()
 				{
 					freeArr(parsedStr);
 					exit(0);
-					break;
 				}
 				if (id < 0)
 				{
 					perror("ERR");
 					freeArr(parsedStr);
 				}
-				else if (id == 0)
+				else if (!id)
 				{
 					a = exeCommand(parsedStr);
-					if (a == 127)
+					if (a == 1)
 					{
-						return (127);
+						exit(127);
 					}
 				}
 				else
@@ -68,11 +62,10 @@ int main()
 					{
 						waitpid(id, &status, WUNTRACED);
 					} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-					id = 0;
 					freeArr(parsedStr);
 				}
 			}
 		}
 	}
-	return (EXIT_SUCCESS);
+	return WEXITSTATUS(status);
 }
