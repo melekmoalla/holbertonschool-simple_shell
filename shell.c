@@ -1,65 +1,75 @@
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include "simple.h"
-/**
- * main - master fonction
- * Return: 0
- **/
-int main(void)
+int main()
 {
-	size_t size = 32;
-	int parsedStrLen;
+	int status;
+	char buffer[32];
 	pid_t id;
-	char buffer[32], *sentence = buffer, **parsedStr;
+	size_t size = 32;
+	char *sentence = buffer;
+	char **parsedStr;
+	int parsedStrLen;
+	
 	while (1)
 	{
 		if (getline(&sentence, &size, stdin) == -1)
 		{
 			if (feof(stdin))
 			{
-				freeArr(&sentence);
 				exit(EXIT_SUCCESS);
 			}
 			else
 			{
-				freeArr(&sentence);
+				perror("readline");
 				exit(EXIT_FAILURE);
 			}
 		}
-		parsedStrLen = numOfWords(sentence);
-		if (parsedStrLen > 0)
+		else
 		{
-			parsedStr = malloc((parsedStrLen + 1) * sizeof(char *));
-			if (parsedStr == NULL)
+			parsedStrLen = numOfWords(sentence);
+			if (parsedStrLen > 0)
 			{
-				fprintf(stderr, "malloc failed");
-				freeArr(&sentence);
-				exit(1);
-			}
-			parsedStr[parsedStrLen] = NULL;
-			parseString(sentence, parsedStr);
-			if (strcmp(parsedStr[0], "exit") == 0)
-			{
-				freeArr(parsedStr);
-				break;
-			}
-			id = fork();
-			if (id < 0)
-			{
-				printf("ERR");
-				free(parsedStr);
-				exit(1);
-			}
-			else if (id == 0)
-			{
-				exeCommand(parsedStr);
-				freeArr(parsedStr);
-			}
-			else
-			{
-				wait(NULL);
-				freeArr(parsedStr);
+				parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
+				if (parsedStr == NULL)
+				{
+					fprintf(stderr, "malloc failed");
+					return (1);
+				}
+				parsedStr[parsedStrLen] = NULL;
+				parseString(sentence, parsedStr);
+				id = fork();
+				if (strcmp(parsedStr[0], "exit") == 0)
+				{
+					freeArr(parsedStr);
+					exit(0);
+					break;
+				}
+				if (id == 0)
+				{
+					exeCommand(parsedStr);
+					freeArr(parsedStr);
+				}
+				else if (id < 0)
+				{
+					perror("ERR");
+					freeArr(parsedStr);
+				}
+				else
+				{
+					do
+					{
+						waitpid(id, &status, WUNTRACED);
+					} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+					id = 0;
+					freeArr(parsedStr);
+				}
 			}
 		}
 	}
-
-	return (0);
+	return (EXIT_SUCCESS);
 }

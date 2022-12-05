@@ -26,7 +26,6 @@ void exeCommand(char **command)
 			}
 		}
 	}
-
 	else if (execvp(command[0], command) != -1)
 	{
 		freeArr(command);
