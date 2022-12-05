@@ -5,7 +5,7 @@
  * @command: the line of the command
  */
 
-int exeCommand(char **command)
+void exeCommand(char **command)
 {
 
 	if (strcmp(command[0], "cd") == 0)
@@ -30,13 +30,12 @@ int exeCommand(char **command)
 	else if (execvp(command[0], command) != -1)
 	{
 		freeArr(command);
-		return(0);
+		exit(0);
 	}
 	else
 	{
 		perror("command not found");
 		freeArr(command);
-		return(1);
+		exit(1);
 	}
-	return (0);
 }

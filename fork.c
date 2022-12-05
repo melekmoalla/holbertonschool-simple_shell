@@ -1,11 +1,9 @@
 #include "simple.h"
-
 /**
  * check - fonction that do pares a the line
  * @sentence: line that will pares it.
  * Return: 0
  */
-
 int check(char *sentence)
 {
 	size_t size = 32;
@@ -13,12 +11,14 @@ int check(char *sentence)
 	{
 		if (feof(stdin))
 		{
-			exit(2);
+			return (2);
 		}
 		else
 		{
+			freeArr(&sentence);
 			wait(NULL);
-			return (1);
+			printf("aaa");
+			return (2);
 		}
 	}
 	return (0);

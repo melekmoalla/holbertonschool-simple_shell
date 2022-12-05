@@ -5,56 +5,61 @@
  **/
 int main(void)
 {
-	int parsedStrLen, a;
+	size_t size = 32;
+	int parsedStrLen;
 	pid_t id;
 	char buffer[32], *sentence = buffer, **parsedStr;
 	while (1)
 	{
-		if (check(sentence) == 1)
+		if (getline(&sentence, &size, stdin) == -1)
 		{
-			exit(0);
-		}
-		else
-		{
-			parsedStrLen = numOfWords(sentence);
-			if (parsedStrLen > 0)
+			if (feof(stdin))
 			{
-				parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
-				if (parsedStr == NULL)
-				{
-					fprintf(stderr, "malloc failed");
-					return (1);
-				}
-				parsedStr[parsedStrLen] = NULL;
-				parseString(sentence, parsedStr);
-				id = fork();
-				if (strcmp(parsedStr[0], "exit") == 0)
-				{
-					freeArr(parsedStr);
-					return (0);
-				}
-				else if (id < 0)
-				{
-					perror("ERR");
-					freeArr(parsedStr);
-					return (1);
-				}
-				else if (id == 0)
-				{
-					a = exeCommand(parsedStr);
-					freeArr(parsedStr);
-					if (a == 1)
-					{
-						exit(127);
-					}
-				}
-				else
-				{
-					wait(NULL);
-					freeArr(parsedStr);
-				}
+				freeArr(&sentence);
+				exit(EXIT_SUCCESS);
+			}
+			else
+			{
+				freeArr(&sentence);
+				exit(EXIT_FAILURE);
+			}
+		}
+		parsedStrLen = numOfWords(sentence);
+		if (parsedStrLen > 0)
+		{
+			parsedStr = malloc((parsedStrLen + 1) * sizeof(char *));
+			if (parsedStr == NULL)
+			{
+				fprintf(stderr, "malloc failed");
+				freeArr(&sentence);
+				exit(1);
+			}
+			parsedStr[parsedStrLen] = NULL;
+			parseString(sentence, parsedStr);
+			if (strcmp(parsedStr[0], "exit") == 0)
+			{
+				freeArr(parsedStr);
+				break;
+			}
+			id = fork();
+			if (id < 0)
+			{
+				printf("ERR");
+				free(parsedStr);
+				exit(1);
+			}
+			else if (id == 0)
+			{
+				exeCommand(parsedStr);
+				freeArr(parsedStr);
+			}
+			else
+			{
+				wait(NULL);
+				freeArr(parsedStr);
 			}
 		}
 	}
-	exit(0);
+
+	return (0);
 }
