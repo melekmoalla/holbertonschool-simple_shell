@@ -21,6 +21,7 @@ int main(void)
 			else
 			{
 				sentence = NULL;
+				free(sentence);
 				perror("");
 				exit(0);
 			}

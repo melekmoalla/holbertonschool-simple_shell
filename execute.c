@@ -29,16 +29,16 @@ int exeCommand(char **command)
 		return (0);
 	}
 
-	if (execvf(buf, command[0], command))
+	if (execvf(buf, command[0], command) == 1)
 	{
 		freeArr(command);
-		return (0);
+		exit(0);
 	}
 	else
 	{
-		perror("");
+		perror("not found");
 		freeArr(command);
-		return (127);
+		exit(127);
 	}
 	return (0);
 }
