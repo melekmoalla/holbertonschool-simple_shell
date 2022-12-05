@@ -5,7 +5,7 @@
  * @command: the line of the command.
  */
 
-void exeCommand(char **command)
+int exeCommand(char **command)
 {
 
 	if (strcmp(command[0], "cd") == 0)
@@ -14,7 +14,7 @@ void exeCommand(char **command)
 		{
 			fprintf(stderr, "hsh: expected argument to \"cd\" \n");
 			freeArr(command);
-			exit(1);
+			return (0);
 		}
 		else
 		{
@@ -22,19 +22,20 @@ void exeCommand(char **command)
 			{
 				printf("hsh: cd");
 				freeArr(command);
-				exit(0);
+				return (0);
 			}
 		}
+		return (0);
 	}
 	else if (execvp(command[0], command) != -1)
 	{
 		freeArr(command);
-		exit(0);
+		return (0);
 	}
 	else
 	{
 		perror("command not found");
 		freeArr(command);
-		exit(1);
+		return (127);
 	}
 }

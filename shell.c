@@ -7,14 +7,14 @@
 #include "simple.h"
 int main()
 {
-	int status;
+	int status, a;
 	char buffer[32];
 	pid_t id;
 	size_t size = 32;
 	char *sentence = buffer;
 	char **parsedStr;
 	int parsedStrLen;
-	
+
 	while (1)
 	{
 		if (getline(&sentence, &size, stdin) == -1)
@@ -26,7 +26,7 @@ int main()
 			else
 			{
 				perror("readline");
-				exit(EXIT_FAILURE);
+				exit(1);
 			}
 		}
 		else
@@ -49,15 +49,18 @@ int main()
 					exit(0);
 					break;
 				}
-				if (id == 0)
-				{
-					exeCommand(parsedStr);
-					freeArr(parsedStr);
-				}
-				else if (id < 0)
+				if (id < 0)
 				{
 					perror("ERR");
 					freeArr(parsedStr);
+				}
+				else if (id == 0)
+				{
+					a = exeCommand(parsedStr);
+					if (a == 127)
+					{
+						return (127);
+					}
 				}
 				else
 				{
