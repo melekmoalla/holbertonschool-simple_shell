@@ -10,11 +10,15 @@
     simple_shell
 .SH SYNOPSIS
     [options] [command_string | file]
+.SH option
+    cd -change directory
+    env - printf environment
+    exit - exit the shell
 .SH DESCRIPTION 
     this Simple Shell is a small simple shell built in C. Supported 
     Supported built-in commands are listed below, otherwise this shell 
     is capable of searching for and executing programs on the PATH.
-.SH DESCRIPTION
+
     there are many option listed below are specific to interpreted with 
     this peogram if the command call.
 .SH COMMANDS
@@ -25,6 +29,14 @@
     mkdir: create directories.
     touch: create a file.
     ...
+
+.SH EXAMPLE
+mayouka@DESKTOP-BB61MHE:~/holbertonschool-simple_shell$ ./hsh
+    ($)
+    ($)ls
+    builtins.c  execute.c  holberton.h  parse.c  path.c    README.md          simpshell.c 
+    ($)exit
+
 .SH COLOPHON         top
        This page is part of release 5.13 of the Linux man-pages project.
        A description of the project, information about reporting bugs,

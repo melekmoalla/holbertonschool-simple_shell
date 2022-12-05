@@ -3,6 +3,25 @@
 - this projet is just I small simple shell
 - This is a simple UNIX shell program built in C. Supported built-in commands are listed below, otherwise this shell is capable of searching for and executing programs on the PATH.
 
+
+<h1> Command interpreter - Simple Shell poject</h1></p>
+
+This is a colaboration project fo sfotware development students at [Holberton School](https://www.holbertonschool.com/) from Cohort 19, This project is about to create an own simple shell
+
+<p align="center">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTLtL_ToHLEo_BWFxD-yf32Ux3zfsH_NPc8Qw&usqp=CAU" width="450" height="350">
+
+## SIMPLE SHELL
+Is an standard command interpretation for system.
+
+
+### Flowchart
+```
+```
+<img src="https://camo.githubusercontent.com/a279f38966c0c0101734bdc0051a6e15eeaa2f4755379e408171a0bc12d8c77a/68747470733a2f2f692e696d6775722e636f6d2f6e53516161516a2e6a7067"/>
+
+```
+```
 <h3> Objectives</h3>
 
 - Learn Unix Shell.
