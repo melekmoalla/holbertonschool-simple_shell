@@ -20,6 +20,6 @@ int numOfWords(const char sentence[]);
 void parseString(char sentence[], char **parsedStr);
 void freeArr(char **parsedStr);
 int check(char *sentence);
-void exeCommand(char **command);
+int exeCommand(char **command);
 
 #endif
