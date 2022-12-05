@@ -9,7 +9,7 @@ int main(void)
 	int status, a, parsedStrLen;
 	pid_t id;
 	size_t size = 32;
-	char buffer[32], *sentence = buffer, **parsedStr;
+	char buffer[200], *sentence = buffer, **parsedStr;
 
 	while (1)
 	{
@@ -20,7 +20,7 @@ int main(void)
 			else
 			{
 				sentence = NULL;
-				printf("rezdaline");
+				perror("");
 				exit(1);
 			}
 		}
@@ -45,7 +45,7 @@ int main(void)
 				}
 				if (id < 0)
 				{
-					printf("ERR");
+					perror("");
 					freeArr(parsedStr);
 					exit(127);
 				}

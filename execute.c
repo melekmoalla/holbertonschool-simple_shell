@@ -34,8 +34,8 @@ int exeCommand(char **command)
 	}
 	else
 	{
-		printf("not found");
+		perror("");
 		freeArr(command);
-		return (127);
+		exit(127);
 	}
 }
