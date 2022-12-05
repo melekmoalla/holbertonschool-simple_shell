@@ -2,7 +2,7 @@
 
 /**
  * exeCommand - foknction that do execute the command
- * @command: the line of the command
+ * @command: the line of the command.
  */
 
 void exeCommand(char **command)
