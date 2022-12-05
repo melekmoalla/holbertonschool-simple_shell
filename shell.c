@@ -20,7 +20,7 @@ int main(void)
 			else
 			{
 				sentence = NULL;
-				perror("readline");
+				printf("rezdaline");
 				exit(1);
 			}
 		}
@@ -45,13 +45,14 @@ int main(void)
 				}
 				if (id < 0)
 				{
-					perror("ERR");
+					printf("ERR");
 					freeArr(parsedStr);
+					exit(127);
 				}
 				else if (!id)
 				{
 					a = exeCommand(parsedStr);
-					if (a == 1)
+					if (a == 127)
 					{
 						exit(127);
 					}
