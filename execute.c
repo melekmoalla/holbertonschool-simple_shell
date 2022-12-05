@@ -36,6 +36,6 @@ int exeCommand(char **command)
 	{
 		perror("");
 		freeArr(command);
-		exit(127);
+		return (127);
 	}
 }

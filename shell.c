@@ -9,7 +9,7 @@ int main(void)
 	int status, a, parsedStrLen;
 	pid_t id;
 	size_t size = 32;
-	char buffer[200], *sentence = buffer, **parsedStr;
+	char buffer[100], *sentence = buffer, **parsedStr;
 
 	while (1)
 	{
@@ -43,13 +43,13 @@ int main(void)
 					freeArr(parsedStr);
 					exit(0);
 				}
-				if (id < 0)
+				if (id == -1)
 				{
 					perror("");
 					freeArr(parsedStr);
-					exit(127);
+					exit(98);
 				}
-				else if (!id)
+				else if (id == 0)
 				{
 					a = exeCommand(parsedStr);
 					if (a == 127)
@@ -59,14 +59,18 @@ int main(void)
 				}
 				else
 				{
-					do
-					{
-						waitpid(id, &status, WUNTRACED);
-					} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+					while (waitpid(-1, &status, 0) != id)
+						;
 					freeArr(parsedStr);
 				}
 			}
 		}
 	}
-	return WEXITSTATUS(status);
+	if (status == 0)
+		errno = 0;
+	if (status == 512)
+		errno = 2;
+	if (status == 65280)
+		errno = 127;
+	return (0);
 }
