@@ -2,12 +2,9 @@
 #define INV_TREE_H
 #include <sys/wait.h>
 #include <sys/types.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include <errno.h>
@@ -21,5 +18,6 @@ void parseString(char sentence[], char **parsedStr);
 void freeArr(char **parsedStr);
 int check(char *sentence);
 int exeCommand(char **command);
+int execvf(char *buf, const char *file, char *const argv[]);
 
 #endif

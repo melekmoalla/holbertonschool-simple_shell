@@ -1,5 +1,5 @@
 #include "simple.h"
-
+#include <unistd.h>
 /**
  * exeCommand - foknction that do execute the command
  * @command: the line of the command.
@@ -7,6 +7,7 @@
 
 int exeCommand(char **command)
 {
+	char buf[PATH_MAX];
 
 	if (strcmp(command[0], "cd") == 0)
 	{
@@ -27,7 +28,8 @@ int exeCommand(char **command)
 		}
 		return (0);
 	}
-	else if (execvp(command[0], command) != -1)
+
+	if (execvf(buf, command[0], command))
 	{
 		freeArr(command);
 		return (0);
@@ -38,4 +40,5 @@ int exeCommand(char **command)
 		freeArr(command);
 		return (127);
 	}
+	return (0);
 }

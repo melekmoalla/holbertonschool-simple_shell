@@ -1,4 +1,5 @@
 #include "simple.h"
+#include <unistd.h>
 /**
  * main - master fonction
  * Return: 0
@@ -21,7 +22,7 @@ int main(void)
 			{
 				sentence = NULL;
 				perror("");
-				exit(1);
+				exit(0);
 			}
 		}
 		else
@@ -43,19 +44,19 @@ int main(void)
 					freeArr(parsedStr);
 					exit(0);
 				}
-				if (id == -1)
-				{
-					perror("");
-					freeArr(parsedStr);
-					exit(98);
-				}
-				else if (id == 0)
+				if (id == 0)
 				{
 					a = exeCommand(parsedStr);
 					if (a == 127)
 					{
-						errno = (127);
+						return (127);
 					}
+				}
+				if (id == -1)
+				{
+					perror("");
+					freeArr(parsedStr);
+					return (1);
 				}
 				else
 				{
