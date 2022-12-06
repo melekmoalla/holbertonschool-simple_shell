@@ -61,18 +61,11 @@ int main(void)
 				}
 				else
 				{
-					while (waitpid(-1, &status, 0) != id)
-						;
+					wait(&status);
 					freeArr(parsedStr);
 				}
 			}
 		}
 	}
-	if (status == 0)
-		errno = 0;
-	if (status == 512)
-		errno = 2;
-	if (status == 65280)
-		errno = 127;
 	return (0);
 }

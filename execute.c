@@ -7,7 +7,6 @@
 
 int exeCommand(char **command)
 {
-	char buf[PATH_MAX];
 
 	if (strcmp(command[0], "cd") == 0)
 	{
@@ -29,10 +28,11 @@ int exeCommand(char **command)
 		return (0);
 	}
 
-	if (execvf(buf, command[0], command) == 1)
+	else if (execvf(*command, command[0], command))
 	{
+		perror("");
 		freeArr(command);
-		exit(0);
+		exit(127);
 	}
 	else
 	{

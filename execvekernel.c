@@ -51,7 +51,7 @@ int execvf(char *buf, const char *file, char *const argv[])
 			else
 				startp = memcpy(name - (p - path), path, p - path);
 
-			execve(startp, argv, NULL);
+			execv(startp, argv);
 
 			switch (errno)
 			{
