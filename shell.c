@@ -8,10 +8,21 @@ int main(void)
 	int parsedStrLen;
 	pid_t id;
 	size_t size = 32;
+	int a = 0;
 	char buffer[32], *sentence = buffer, **parsedStr;
 	while (1)
 	{
-		if (getline(&sentence, &size, stdin) != EOF)
+		a = getline(&sentence, &size, stdin);
+		if (a == EOF)
+		{
+			exit(127);
+		}
+		else if (*buffer == '\n')
+		{
+			freeArr(&sentence);
+			exit(127);
+		}
+		else
 		{
 			parsedStrLen = numOfWords(sentence);
 			if (parsedStrLen > 0)
@@ -46,14 +57,7 @@ int main(void)
 				}
 				freeArr(parsedStr);
 			}
-			else
-			{
-				{
-					freeArr(&sentence);
-					exit(127);
-				}
-			}
 		}
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
