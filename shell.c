@@ -9,11 +9,10 @@ int main(void)
 	pid_t id;
 	size_t size = 1024;
 	char buffer[1024], *sentence = buffer, **parsedStr;
-
 	while (1)
 	{
-		getline(&sentence, &size, stdin);
-		parsedStrLen = numOfWords(sentence);
+		if (getline(&sentence, &size, stdin) != -1)
+			parsedStrLen = numOfWords(sentence);
 		if (parsedStrLen > 0)
 		{
 			parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
@@ -24,13 +23,13 @@ int main(void)
 			}
 			parsedStr[parsedStrLen] = NULL;
 			parseString(sentence, parsedStr);
+			id = fork();
 			if (strcmp(parsedStr[0], "exit") == 0)
 			{
 				freeArr(parsedStr);
 				return (0);
 			}
-			id = fork();
-			if (id < 0)
+			else if (id < 0)
 			{
 				perror("ERR");
 				freeArr(parsedStr);
@@ -48,6 +47,7 @@ int main(void)
 		}
 		else
 		{
+
 			freeArr(&sentence);
 			exit(127);
 		}
