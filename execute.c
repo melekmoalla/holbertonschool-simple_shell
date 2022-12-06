@@ -28,7 +28,7 @@ int exeCommand(char **command)
 		return (0);
 	}
 
-	if (execvp(command[0], command))
+	if (execvp(command[0], command) != -1)
 	{
 		perror("execvp_noalloc");
 		freeArr(command);
