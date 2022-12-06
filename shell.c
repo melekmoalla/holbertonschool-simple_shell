@@ -17,9 +17,8 @@ int main(void)
 		{
 			return (EXIT_SUCCESS);
 		}
-		else if (*buffer == '\n')
+		else if (*buffer == '\0' || *buffer == '\n')
 		{
-			freeArr(&sentence);
 			exit(127);
 		}
 		else
