@@ -5,7 +5,7 @@
  **/
 int main(void)
 {
-	int status, parsedStrLen;
+	int parsedStrLen, a;
 	pid_t id;
 	size_t size = 32;
 	char buffer[32], *sentence = buffer, **parsedStr;
