@@ -15,7 +15,7 @@ int main(void)
 		a = getline(&sentence, &size, stdin);
 		if (a == EOF)
 		{
-			exit(127);
+			return (EXIT_SUCCESS);
 		}
 		else if (*buffer == '\n')
 		{
