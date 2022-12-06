@@ -12,12 +12,8 @@ int main(void)
 
 	while (1)
 	{
-		if (getline(&sentence, &size, stdin) == EOF)
-		{
-			freeArr(&sentence);
-			exit(127);
-		}
-		parsedStrLen = numOfWords(sentence);
+		if (getline(&sentence, &size, stdin) != -1)
+			parsedStrLen = numOfWords(sentence);
 		if (parsedStrLen > 0)
 		{
 			parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
@@ -50,7 +46,13 @@ int main(void)
 			}
 			freeArr(parsedStr);
 		}
+		else
+		{
+			{
+				freeArr(&sentence);
+				exit(127);
+			}
+		}
 	}
-
 	exit(0);
 }
