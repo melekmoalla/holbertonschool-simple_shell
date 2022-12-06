@@ -54,5 +54,6 @@ int main(void)
 				exit(127);
 			}
 		}
-		exit(0);
 	}
+	return (0);
+}
