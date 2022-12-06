@@ -13,7 +13,6 @@ int exeCommand(char **command)
 		if (command[1] == NULL)
 		{
 			fprintf(stderr, "hsh: expected argument to \"cd\" \n");
-			freeArr(command);
 			return (0);
 		}
 		else
@@ -22,13 +21,13 @@ int exeCommand(char **command)
 			{
 				printf("hsh: cd");
 				freeArr(command);
-				return (0);
+				exit(0);
 			}
 		}
 		return (0);
 	}
 
-	else if (execvp(command[0], command) != -1)
+	else if (execv(command[0], command) != -1)
 	{
 		freeArr(command);
 		exit(0);
@@ -39,5 +38,6 @@ int exeCommand(char **command)
 		freeArr(command);
 		exit(127);
 	}
+
 	return (0);
 }

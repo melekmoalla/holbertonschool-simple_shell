@@ -19,5 +19,6 @@ int numOfWords(const char sentence[]);
 void parseString(char sentence[], char **parsedStr);
 void freeArr(char **parsedStr);
 int exeCommand(char **command);
+int execv(const char *path, char *const argv[]);
 
 #endif
