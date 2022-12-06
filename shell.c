@@ -7,14 +7,14 @@ int main(void)
 {
 	int parsedStrLen;
 	pid_t id;
-	size_t size = 1024;
-	char buffer[1024], *sentence = buffer, **parsedStr;
+	size_t size = 32;
+	char buffer[32], *sentence = buffer, **parsedStr;
 	while (1)
 	{
 		if (getline(&sentence, &size, stdin) != -1)
-		{
 			parsedStrLen = numOfWords(sentence);
-
+		if (parsedStrLen > 0)
+		{
 			parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
 			if (parsedStr == NULL)
 			{
@@ -53,5 +53,5 @@ int main(void)
 			}
 		}
 	}
-	exit(0);
+	return (0);
 }
