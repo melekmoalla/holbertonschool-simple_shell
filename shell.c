@@ -11,7 +11,7 @@ int main(void)
 	char buffer[32], *sentence = buffer, **parsedStr;
 	while (1)
 	{
-		if (getline(&sentence, &size, stdin) != -EOF)
+		if (getline(&sentence, &size, stdin) != EOF)
 		{
 			parsedStrLen = numOfWords(sentence);
 			if (parsedStrLen > 0)
