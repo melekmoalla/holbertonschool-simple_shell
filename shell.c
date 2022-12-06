@@ -47,13 +47,13 @@ int main(void)
 				}
 				freeArr(parsedStr);
 			}
-			else
-			{
+		}
+		else
+		{
 
-				freeArr(&sentence);
-				exit(127);
-			}
+			freeArr(&sentence);
+			exit(127);
 		}
 	}
-	return (0);
+	exit(0);
 }
