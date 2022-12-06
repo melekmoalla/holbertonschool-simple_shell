@@ -28,11 +28,11 @@ int exeCommand(char **command)
 		return (0);
 	}
 
-	else if (execvf(*command, command[0], command))
+	if (execvp(command[0], command))
 	{
-		perror("");
+		perror("execvp_noalloc");
 		freeArr(command);
-		exit(127);
+		exit(0);
 	}
 	else
 	{
