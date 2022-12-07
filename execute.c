@@ -1,43 +1,54 @@
 #include "simple.h"
-#include <unistd.h>
-/**
- * exeCommand - foknction that do execute the command
- * @command: the line of the command.
- */
 
-int exeCommand(char **command)
+int check(char **parsedStr, char *buff)
 {
 
-	if (strcmp(command[0], "cd") == 0)
-	{
-		if (command[1] == NULL)
-		{
-			fprintf(stderr, "hsh: expected argument to \"cd\" \n");
-			return (0);
-		}
-		else
-		{
-			if (chdir(command[1]) != 0)
-			{
-				printf("hsh: cd");
-				freeArr(command);
-				exit(0);
-			}
-		}
-		return (0);
-	}
+    if (_strcmp(parsedStr[0], "env") == 0)
+    {
+        _env();
+        freeArr(parsedStr);
+        free(buff);
+        return (1);
+    }
+    if (_strcmp(parsedStr[0], "exit") == 0)
+    {
+        freeArr(parsedStr);
+        free(buff);
+        exit(0);
+    }
 
-	else if (execvp(*command, command) != -1)
-	{
-		freeArr(command);
-		exit(0);
-	}
-	else
-	{
-		perror("not found");
-		freeArr(command);
-		exit(127);
-	}
+    return (0);
+}
 
-	return (0);
+int forkk(char **parsedStr, char *buffer, char *fullpathbuffer)
+{
+    int status, z, exitt = 0;
+    pid_t pid;
+
+    pid = fork();
+    if (pid == -1)
+    {
+        perror("eroe");
+        exit(1);
+    }
+    if (pid == 0)
+    {
+        z = execve(fullpathbuffer, parsedStr, NULL);
+        if (z == -1)
+        {
+
+            perror("error");
+            freeArr(parsedStr);
+            free(buffer);
+            exit(127);
+        }
+    }
+    wait(&status);
+    if (WIFEXITED(status))
+    {
+        exitt = WEXITSTATUS(status);
+    }
+    freeArr(parsedStr);
+    free(buffer);
+    return (exitt);
 }

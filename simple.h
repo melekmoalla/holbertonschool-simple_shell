@@ -1,29 +1,37 @@
 #ifndef INV_TREE_H
 #define INV_TREE_H
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <errno.h>
 
-#include <unistd.h>
-#include <stdarg.h>
-#include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <fcntl.h>
 #include <string.h>
-#include <errno.h>
-#include <paths.h>
-#define SENTENCE_LEN 511
-#define PATH_MAX 512
+#include <signal.h>
+
+extern char **environ;
+
 int main(void);
+int prompt(void);
 int numOfWords(const char sentence[]);
 void parseString(char sentence[], char **parsedStr);
+char *allpath(char **av, char *PATH, char *copy);
+int _pathstrcmp(const char *s1, const char *s2);
+char *_concat(char *tmp, char **av, char *tok);
+
+int forkk(char **parsedStr, char *buffer, char *fullpathbuffer);
+int check(char **parsedStr, char *buff);
+
 void freeArr(char **parsedStr);
-int exeCommand(char **command);
+char *_getenv(const char *name);
+int _env(void);
+char *_memset(char *s, char b, unsigned int n);
+char *_strdup(char *str);
+int _strcmp(const char *s1, const char *s2);
+char *_strcat(char *dest, char *src);
+int _strlen(char *s);
+
 #endif

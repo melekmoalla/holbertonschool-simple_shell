@@ -5,53 +5,46 @@
  **/
 int main(void)
 {
-	int parsedStrLen;
-	pid_t id;
-	size_t size = 1024;
-	char buffer[2000], *sentence = buffer, **parsedStr;
-	while (1)
-	{
-		if (getline(&sentence, &size, stdin) != -1)
-		{
-			parsedStrLen = numOfWords(sentence);
+    char *path = NULL, *buff = NULL, *fullpathbuffer = NULL;
+    int parsedStrLen;
+    char **parsedStr, *copy = NULL;
+    ssize_t readcount = 0;
+    size_t n = 0;
 
-			parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
-			if (parsedStr == NULL)
-			{
-				fprintf(stderr, "malloc failed");
-				return (1);
-			}
-			parsedStr[parsedStrLen] = NULL;
-			parseString(sentence, parsedStr);
-			id = fork();
-			if (strcmp(parsedStr[0], "exit") == 0)
-			{
-				freeArr(parsedStr);
-				return (0);
-			}
-			else if (id < 0)
-			{
-				perror("ERR");
-				freeArr(parsedStr);
-				exit(1);
-			}
-			else if (id == 0)
-			{
-				exeCommand(parsedStr);
-			}
-			else
-			{
-				wait(NULL);
-			}
-			freeArr(parsedStr);
-		}
-		else
-		{
-			{
-				freeArr(&sentence);
-				exit(127);
-			}
-		}
-	}
-	exit(0);
+    /**getenv is to give all the path like this*/
+    path = _getenv("PATH");
+    if (path == NULL)
+        return (-1);
+    while (1)
+    {
+        parsedStr = NULL;
+        buff = NULL;
+        prompt();
+
+        readcount = getline(&buff, &n, stdin);
+        if (readcount == -1)
+        {
+            free(buff);
+            exit(0);
+        }
+        parsedStrLen = numOfWords(buff);
+        if (parsedStrLen > 0)
+        {
+            parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
+            if (parsedStr == NULL)
+            {
+                fprintf(stderr, "malloc failed");
+                exit(1);
+            }
+            parsedStr[parsedStrLen] = NULL;
+            parseString(buff, parsedStr);
+            fullpathbuffer = allpath(parsedStr, path, copy);
+            if (check(parsedStr, buff) != 0)
+                continue;
+            forkk(parsedStr, buff, fullpathbuffer);
+        }
+        else
+            free(buff);
+    }
+    return (0);
 }
