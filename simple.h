@@ -15,7 +15,6 @@
 extern char **environ;
 
 int main(void);
-int prompt(void);
 int numOfWords(const char sentence[]);
 void parseString(char sentence[], char **parsedStr);
 char *allpath(char **av, char *PATH, char *copy);

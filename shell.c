@@ -19,8 +19,7 @@ int main(void)
     {
         parsedStr = NULL;
         buff = NULL;
-        prompt();
-
+        
         readcount = getline(&buff, &n, stdin);
         if (readcount == -1)
         {

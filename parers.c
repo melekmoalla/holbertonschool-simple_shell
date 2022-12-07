@@ -1,15 +1,5 @@
 #include "simple.h"
-/**
- * prompt - writes a prompt
- *
- * Return: 0 on sucess
- */
-int prompt(void)
-{
 
-	printf("$");
-	return (0);
-}
 
 /**
  * _fullpathbuffer - finds the string to call execve on
