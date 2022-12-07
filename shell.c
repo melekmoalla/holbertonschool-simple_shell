@@ -7,18 +7,17 @@ int main(void)
 {
 	int parsedStrLen;
 	pid_t id;
-	size_t size = 32;
-	char buffer[32], *sentence = buffer, **parsedStr;
-
-	while (getline(&sentence, &size, stdin) != -1)
+	size_t size = 1024;
+	char buffer[1024], *sentence = buffer, **parsedStr;
+	while (1)
 	{
-		parsedStrLen = numOfWords(sentence);
+		if (getline(&sentence, &size, stdin) != -1)
+			parsedStrLen = numOfWords(sentence);
 		if (parsedStrLen > 0)
 		{
 			parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
 			if (parsedStr == NULL)
 			{
-				free(parsedStr);
 				fprintf(stderr, "malloc failed");
 				return (1);
 			}
@@ -43,12 +42,16 @@ int main(void)
 			else
 			{
 				wait(NULL);
-				id = 0;
 			}
 			freeArr(parsedStr);
-			id = 0;
-			parsedStrLen = 0;
+		}
+		else
+		{
+			{
+				freeArr(&sentence);
+				exit(127);
+			}
 		}
 	}
-	return (EXIT_SUCCESS);
+	exit(0);
 }
