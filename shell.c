@@ -6,15 +6,15 @@
 int main(void)
 {
 	int parsedStrLen;
-	pid_t id, a = 0;
+	pid_t id;
 	size_t size = 1024;
-	char buffer[1024], *sentence = buffer, **parsedStr;
+	char buffer[2000], *sentence = buffer, **parsedStr;
 	while (1)
 	{
-		a = getline(&sentence, &size, stdin);
-		parsedStrLen = numOfWords(sentence);
-		if (parsedStrLen > 0 && a > 0)
+		if (getline(&sentence, &size, stdin) != -1)
 		{
+			parsedStrLen = numOfWords(sentence);
+
 			parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
 			if (parsedStr == NULL)
 			{
