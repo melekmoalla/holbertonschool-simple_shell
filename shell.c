@@ -24,7 +24,7 @@ int main(void)
 		{free(buff);
 			exit(0); }
 		parsedStrLen = numOfWords(buff);
-		if (parsedStrLen > 0)
+		if (*buff != '\0')
 		{
 			parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
 			if (parsedStr == NULL)
@@ -33,7 +33,7 @@ int main(void)
 			parsedStr[parsedStrLen] = NULL;
 			parseString(buff, parsedStr);
 			if (_strcmp(parsedStr[0], "env") == 0)
-			{ execvp(parsedStr[0],parsedStr);
+			{ _env(parsedStrLen, parsedStr, environ);
 				freeArr(parsedStr);
 				free(buff);
 				continue; }
