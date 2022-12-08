@@ -35,10 +35,12 @@ int _pathstrcmp(const char *s1, const char *s2)
 
 int _env(void)
 {
-    int i;
+    char **s = environ;
 
-    for (i = 0; environ[i] != NULL; i++)
-        printf("\n%s", environ[i]);
+    for (; *s; s++)
+    {
+        printf("%s\n", *s);
+    }
     return (0);
 }
 
