@@ -33,7 +33,7 @@ int main(void)
 			parsedStr[parsedStrLen] = NULL;
 			parseString(buff, parsedStr);
 			if (_strcmp(parsedStr[0], "env") == 0)
-			{_env(parsedStrLen, parsedStr,environ);
+			{ _env(parsedStrLen, parsedStr, environ);
 				freeArr(parsedStr);
 				free(buff);
 				continue; }
