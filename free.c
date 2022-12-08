@@ -12,5 +12,5 @@ void freeArr(char **parsedStr)
 	while (parsedStr[i])
 		free(parsedStr[i++]);
 	free(parsedStr);
-	
 }
+

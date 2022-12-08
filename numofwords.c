@@ -1,17 +1,31 @@
 #include "simple.h"
 
+/**
+ * numOfWords - fonction dispaly the number of the word in the line
+ * @sentence: char
+ * Return: wordCounter
+ */
 int numOfWords(const char sentence[])
 {
 	int i = 0, wordCounter = 0;
+
 	while (sentence[i] != '\n')
 	{
-		if (sentence[i] != ' ' && (sentence[i + 1] == ' ' || sentence[i + 1] == '\n'))
+		if (sentence[i] != ' ' && (sentence[i + 1] == ' ' ||
+								   sentence[i + 1] == '\n'))
 			wordCounter++;
 		i++;
 	}
-	return wordCounter;
+	return (wordCounter);
 }
 
+/**
+ *_concat - fonction taht concat two sting bettwen /
+ * @tmp: char
+ * @av: char
+ * @tok: char
+ * Return: tmp
+ */
 char *_concat(char *tmp, char **av, char *tok)
 {
 	int len = 0;

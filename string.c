@@ -1,108 +1,93 @@
 #include "simple.h"
 
 /**
- * _getenv - gets PATH member from environ
- * @name: pointer to PATH string
- *
- * Return: pointer to PATH member string or NULL if not found
+ * _memset - fonction taht do comparison bitwen to patgh
+ * @s: char
+ * @b: char
+ * @n: unsigned int n
+ * Return: s
  */
-char *_getenv(const char *name)
-{
-    int i, result;
-
-    for (i = 0; environ[i]; i++)
-    {
-        result = _pathstrcmp(name, environ[i]);
-        if (result == 0)
-        {
-            return (environ[i]);
-        }
-    }
-    return (NULL);
-}
-
-int _pathstrcmp(const char *s1, const char *s2)
-{
-    int i;
-
-    for (i = 0; s2[i] != '='; i++)
-    {
-        if (s1[i] != s2[i])
-            return (-1);
-    }
-    return (0);
-}
-
-int _env(void)
-{
-    char **s = environ;
-
-    for (; *s; s++)
-    {
-        printf("%s\n", *s);
-    }
-    return (0);
-}
-
 char *_memset(char *s, char b, unsigned int n)
 {
-    unsigned int i;
+	unsigned int i;
 
-    for (i = 0; i < n; i++)
-        s[i] = b;
-    return (s);
+	for (i = 0; i < n; i++)
+		s[i] = b;
+	return (s);
 }
 
+/**
+ * _strdup - fonction taht do comparison bitwen to patgh
+ * @str: char
+ * Return: dest_str
+ */
 char *_strdup(char *str)
 {
-    int i;
-    char *dest_str = NULL;
+	int i;
+	char *dest_str = NULL;
 
-    if (str == NULL)
-        return (NULL);
-    for (i = 0; str[i] != '\0'; i++)
-        ;
-    dest_str = malloc(sizeof(char) * (i + 1));
-    if (dest_str == NULL)
-        return (NULL);
-    for (i = 0; str[i] != '\0'; i++)
-    {
-        dest_str[i] = str[i];
-    }
-    dest_str[i] = '\0';
-    return (dest_str);
+	if (str == NULL)
+		return (NULL);
+	for (i = 0; str[i] != '\0'; i++)
+		;
+	dest_str = malloc(sizeof(char) * (i + 1));
+	if (dest_str == NULL)
+		return (NULL);
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		dest_str[i] = str[i];
+	}
+	dest_str[i] = '\0';
+	return (dest_str);
 }
 
+/**
+ * _strcmp - fonction taht do comparison bettwen two string
+ * @s1: const char
+ * @s2: const char
+ * Return: 0 or s1-s2
+ */
 int _strcmp(const char *s1, const char *s2)
 {
-    while ((*s1 != '\0' && *s2 != '\0') && *s1 == *s2)
-    {
-        s1++;
-        s2++;
-    }
-    if (*s1 == *s2)
-        return (0);
-    else
-        return (*s1 - *s2);
+	while ((*s1 != '\0' && *s2 != '\0') && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	if (*s1 == *s2)
+		return (0);
+	else
+		return (*s1 - *s2);
 }
 
+/**
+ * _strcat - fonction that do concatenation
+ * @dest: const char
+ * @src: const char
+ * Return: dest
+ */
 char *_strcat(char *dest, char *src)
 {
-    int i, j;
+	int i, j;
 
-    for (i = 0; dest[i] != '\0'; i++)
-        ;
-    for (j = 0; src[j] != '\0'; j++, i++)
-        dest[i] = src[j];
-    dest[i] = '\0';
-    return (dest);
+	for (i = 0; dest[i] != '\0'; i++)
+		;
+	for (j = 0; src[j] != '\0'; j++, i++)
+		dest[i] = src[j];
+	dest[i] = '\0';
+	return (dest);
 }
 
+/**
+ * _strlen - fonction taht do comparison bitwen to patgh
+ * @s: char
+ * Return: i
+ */
 int _strlen(char *s)
 {
-    int i;
+	int i;
 
-    for (i = 0; s[i]; i++)
-        ;
-    return (i);
+	for (i = 0; s[i]; i++)
+		;
+	return (i);
 }
