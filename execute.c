@@ -17,7 +17,8 @@ int check(char **parsedStr, char *buff)
         free(buff);
         exit(0);
     }
-    return (0);
+    else
+        return (0);
 }
 
 int forkk(char **parsedStr, char *buffer, char *fullpathbuffer)
