@@ -37,8 +37,8 @@ int _env(void)
 {
     int i;
 
-    for (i = 0; environ[i]; i++)
-        printf("%s\n", environ[i]);
+    for (i = 0; environ[i] != NULL; i++)
+        printf("\n%s", environ[i]);
     return (0);
 }
 
