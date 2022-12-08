@@ -24,7 +24,7 @@ int main(void)
 		{free(buff);
 			exit(0); }
 		parsedStrLen = numOfWords(buff);
-		if (*buff != '\0')
+		if ((parsedStrLen > 0))
 		{
 			parsedStr = (char **)malloc((parsedStrLen + 1) * sizeof(char *));
 			if (parsedStr == NULL)
