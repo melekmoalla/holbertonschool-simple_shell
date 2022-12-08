@@ -1,42 +1,5 @@
 #include "simple.h"
 
-
-/**
- * _fullpathbuffer - finds the string to call execve on
- * @av: pointer to array of user strings
- * @PATH: pointer to PATH string
- * @copy: pointer to copy of PATH string
- *
- * Return: a pointer to string to call execve on
- */
-char *allpath(char **av, char *PATH, char *copy)
-{
-	char *tok = NULL, *fullpathbuffer = NULL, *concatstr = NULL;
-	static char tmp[256];
-	int fullpathflag = 0;
-	struct stat h;
-
-	copy = NULL;
-	copy = _strdup(PATH);
-	tok = strtok(copy, ": =");
-	while (tok != NULL)
-	{
-		concatstr = _concat(tmp, av, tok);
-		if (stat(concatstr, &h) == 0)
-		{
-			fullpathbuffer = concatstr;
-			fullpathflag = 1;
-			break;
-		}
-
-		tok = strtok(NULL, ":");
-	}
-	if (fullpathflag == 0)
-		fullpathbuffer = av[0];
-	free(copy);
-	return (fullpathbuffer);
-}
-
 void parseString(char sentence[], char **parsedStr)
 {
 	char tmpWord[200];
@@ -65,4 +28,31 @@ void parseString(char sentence[], char **parsedStr)
 			tmpIndex = 0;
 		}
 	}
+}
+char *allpath(char **parsedStr, char *PATH, char *copy)
+{
+	char *tok = NULL, *path = NULL, *concatstr = NULL;
+	static char tmp[200];
+	int fullpathflag = 0;
+	struct stat h;
+
+	copy = NULL;
+	copy = _strdup(PATH);
+	tok = strtok(copy, ":");
+	while (tok != NULL)
+	{
+		concatstr = _concat(tmp, parsedStr, tok);
+		if (stat(concatstr, &h) == 0)
+		{
+			path = concatstr;
+			fullpathflag = 1;
+			break;
+		}
+
+		tok = strtok(NULL, ":");
+	}
+	if (fullpathflag == 0)
+		path = parsedStr[0];
+	free(copy);
+	return (path);
 }
