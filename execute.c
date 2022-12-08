@@ -9,7 +9,7 @@ int check(char **parsedStr, char *buff)
         execve_env(buf, parsedStr[0], parsedStr);
         freeArr(parsedStr);
         free(buff);
-        exit(1);
+        return(1);
     }
     else if (_strcmp(parsedStr[0], "exit") == 0)
     {
