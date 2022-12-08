@@ -18,6 +18,7 @@ int main(void)
 	while (1)
 	{
 		parsedStr = NULL;
+		buff = NULL;
 		readcount = getline(&buff, &n, stdin);
 		if (readcount == -1)
 		{free(buff);
