@@ -5,19 +5,18 @@ int check(char **parsedStr, char *buff)
 
     if (_strcmp(parsedStr[0], "env") == 0)
     {
-        execve_env(parsedStr[0], *parsedStr, environ);
+        execve_env(*environ, parsedStr[0], parsedStr);
         freeArr(parsedStr);
         free(buff);
         return (1);
     }
-    if (_strcmp(parsedStr[0], "exit") == 0)
+    else if (_strcmp(parsedStr[0], "exit") == 0)
     {
         freeArr(parsedStr);
         free(buff);
         exit(0);
     }
-    else
-        return (0);
+    return (0);
 }
 
 int forkk(char **parsedStr, char *buffer, char *fullpathbuffer)
