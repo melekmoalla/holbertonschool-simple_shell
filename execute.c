@@ -2,13 +2,14 @@
 
 int check(char **parsedStr, char *buff)
 {
+    char buf[2000];
 
     if (_strcmp(parsedStr[0], "env") == 0)
     {
-        execve_env(*environ, parsedStr[0], parsedStr);
+        execve_env(buf, parsedStr[0], parsedStr);
         freeArr(parsedStr);
         free(buff);
-        return (1);
+        exit(1);
     }
     else if (_strcmp(parsedStr[0], "exit") == 0)
     {
