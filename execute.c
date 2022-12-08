@@ -9,7 +9,7 @@ int check(char **parsedStr, char *buff)
         execve_env(buf, parsedStr[0], parsedStr);
         freeArr(parsedStr);
         free(buff);
-        return(1);
+        return (1);
     }
     else if (_strcmp(parsedStr[0], "exit") == 0)
     {
@@ -17,8 +17,8 @@ int check(char **parsedStr, char *buff)
         free(buff);
         exit(0);
     }
-    else
-        return (0);
+
+    return (0);
 }
 
 int forkk(char **parsedStr, char *buffer, char *fullpathbuffer)
