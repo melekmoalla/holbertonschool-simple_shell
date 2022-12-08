@@ -39,7 +39,7 @@ int main(void)
             parseString(buff, parsedStr);
             fullpath = allpath(parsedStr, path, copy);
             if (check(parsedStr, buff) != 0)
-                continue;
+                return (0);
             forkk(parsedStr, buff, fullpath);
         }
         else
