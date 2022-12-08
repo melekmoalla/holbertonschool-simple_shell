@@ -25,7 +25,7 @@ int check(char **parsedStr, char *buff);
 
 void freeArr(char **parsedStr);
 char *_getenv(const char *name);
-int _env(void);
+int _env(int argc, char *argv[], char* envp[]);
 char *_memset(char *s, char b, unsigned int n);
 char *_strdup(char *str);
 int _strcmp(const char *s1, const char *s2);

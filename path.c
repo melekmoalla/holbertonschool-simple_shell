@@ -77,13 +77,11 @@ int _pathstrcmp(const char *s1, const char *s2)
  * _env - dispaly envirment variable
  * Return: 0 or -1
  */
-int _env(void)
-{
-	char **s = environ;
-
-	for (; *s; s++)
-	{
-		printf("%s\n", *s);
-	}
-	return (0);
+int _env(__attribute__((unused))int argc,__attribute__((unused)) char* argv[], char* envp[]) {
+	int i;
+     for (i = 0; envp[i] != NULL; i++)
+    {    
+        printf("%s\n", envp[i]);
+    }
+  return 0;
 }
