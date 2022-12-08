@@ -6,10 +6,9 @@ int check(char **parsedStr, char *buff)
 
     if (_strcmp(parsedStr[0], "env") == 0)
     {
-        execve_env(buf, parsedStr[0], parsedStr);
+        execve_env(buf, *parsedStr, parsedStr);
         freeArr(parsedStr);
         free(buff);
-        return (1);
     }
     else if (_strcmp(parsedStr[0], "exit") == 0)
     {
