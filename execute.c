@@ -42,5 +42,5 @@ int forkk(char **parsedStr, char *buffer, char *fullpathbuffer)
     }
     freeArr(parsedStr);
     free(buffer);
-    return (exitt);
+    return (0);
 }
