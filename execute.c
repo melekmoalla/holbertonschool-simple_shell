@@ -5,7 +5,7 @@ int check(char **parsedStr, char *buff)
 
     if (_strcmp(parsedStr[0], "env") == 0)
     {
-        _execve_env(parsedStr[0], *parsedStr, environ);
+        execve_env(parsedStr[0], *parsedStr, environ);
         freeArr(parsedStr);
         free(buff);
         return (1);

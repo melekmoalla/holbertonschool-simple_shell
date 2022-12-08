@@ -17,10 +17,10 @@ extern char **environ;
 int main(void);
 int numOfWords(const char sentence[]);
 void parseString(char sentence[], char **parsedStr);
-char *allpath(char **av, char *PATH, char *copy);
+char *allpath(char **parsedStr, char *PATH, char *copy);
 int _pathstrcmp(const char *s1, const char *s2);
 char *_concat(char *tmp, char **av, char *tok);
-
+int execve_env(char *buf, const char *file, char *const argv[]);
 int forkk(char **parsedStr, char *buffer, char *fullpathbuffer);
 int check(char **parsedStr, char *buff);
 
