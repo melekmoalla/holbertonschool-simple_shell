@@ -38,7 +38,7 @@ int forkk(char **parsedStr, char *buffer, char *fullpathbuffer)
 	}
 	if (pid == 0)
 	{
-		z = execve(fullpathbuffer, parsedStr, NULL);
+		z = execve(fullpathbuffer, parsedStr, environ);
 		if (z == -1)
 		{
 

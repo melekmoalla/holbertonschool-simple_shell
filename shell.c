@@ -18,7 +18,6 @@ int main(void)
 	while (1)
 	{
 		parsedStr = NULL;
-		buff = NULL;
 		readcount = getline(&buff, &n, stdin);
 		if (readcount == -1)
 		{free(buff);
@@ -33,7 +32,7 @@ int main(void)
 			parsedStr[parsedStrLen] = NULL;
 			parseString(buff, parsedStr);
 			if (_strcmp(parsedStr[0], "env") == 0)
-			{ _env(parsedStrLen, parsedStr, environ);
+			{ execvp(parsedStr[0],parsedStr);
 				freeArr(parsedStr);
 				free(buff);
 				continue; }
