@@ -11,6 +11,7 @@ int main(void)
     ssize_t readcount = 0;
     size_t n = 0;
 
+    signal(SIGINT, SIG_IGN);
     /**getenv is to give all the path like this*/
     path = _getenv("PATH");
     if (path == NULL)
@@ -39,7 +40,7 @@ int main(void)
             parseString(buff, parsedStr);
             fullpath = allpath(parsedStr, path, copy);
             if (check(parsedStr, buff) != 0)
-                return (0);
+                continue;
             forkk(parsedStr, buff, fullpath);
         }
         else
