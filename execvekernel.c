@@ -22,7 +22,7 @@ int execve_env(char *buf, const char *file, char *const argv[])
 	if (strchr(file, '/') != NULL)
 	{
 		/* Don't search when it contains a slash.  */
-		execv(file, argv);
+		execve(file, argv, NULL);
 	}
 	else
 	{
@@ -55,7 +55,7 @@ int execve_env(char *buf, const char *file, char *const argv[])
 			else
 				startp = memcpy(name - (p - path), path, p - path);
 			/* Try to execute this name.  If it works, execv will not return.  */
-			execv(startp, argv);
+			execve(startp, argv, NULL);
 
 			switch (errno)
 			{
