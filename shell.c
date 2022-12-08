@@ -38,7 +38,15 @@ int main(void)
             }
             parsedStr[parsedStrLen] = NULL;
             parseString(buff, parsedStr);
+            if (_strcmp(parsedStr[0], "env") == 0)
+            {
+                _env();
+                freeArr(parsedStr);
+                free(buff);
+                continue;
+            }
             fullpath = allpath(parsedStr, path, copy);
+
             if (check(parsedStr, buff) != 0)
                 continue;
             forkk(parsedStr, buff, fullpath);
