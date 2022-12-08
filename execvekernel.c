@@ -15,14 +15,15 @@
    no slashes, with arguments ARGV and environment from `environ'.  */
 int execve_env(char *buf, const char *file, char *const argv[])
 {
+
 	if (*file == '\0')
 	{
 		return -ENOENT;
 	}
 	if (strchr(file, '/') != NULL)
 	{
-		/* Don't search when it contains a slash.  */
-		execve(file, argv, NULL);
+
+		execv(file, argv);
 	}
 	else
 	{
@@ -44,7 +45,7 @@ int execve_env(char *buf, const char *file, char *const argv[])
 		{
 			char *startp;
 			path = p;
-
+			
 			p = strchr(path, ':');
 			if (!p)
 				p = strchr(path, '\0');
@@ -55,8 +56,11 @@ int execve_env(char *buf, const char *file, char *const argv[])
 			else
 				startp = memcpy(name - (p - path), path, p - path);
 			/* Try to execute this name.  If it works, execv will not return.  */
-			execve(startp, argv, NULL);
-
+			execv(startp, argv);
+			/*
+			if (errno == ENOEXEC) {
+			}
+			*/
 			switch (errno)
 			{
 			case EACCES:
@@ -77,8 +81,15 @@ int execve_env(char *buf, const char *file, char *const argv[])
 				   stranger error numbers.  They cannot reasonably mean
 				   anything else so ignore those, too.  */
 			case ENOEXEC:
+				/* We won't go searching for the shell
+				 * if it is not executable - the Linux
+				 * kernel already handles this enough,
+				 * for us. */
 				break;
 			default:
+				/* Some other error means we found an executable file, but
+				   something went wrong executing it; return the error to our
+				   caller.  */
 				return -errno;
 			}
 		} while (*p++ != '\0');
