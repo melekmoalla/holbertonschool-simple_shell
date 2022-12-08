@@ -14,7 +14,7 @@ int check(char **parsedStr, char *buff)
 
 int forkk(char **parsedStr, char *buffer, char *fullpathbuffer)
 {
-    int status, z, exitt = 0;
+    int status, z;
     pid_t pid;
 
     pid = fork();
@@ -38,7 +38,7 @@ int forkk(char **parsedStr, char *buffer, char *fullpathbuffer)
     wait(&status);
     if (WIFEXITED(status))
     {
-        exitt = WEXITSTATUS(status);
+        WEXITSTATUS(status);
     }
     freeArr(parsedStr);
     free(buffer);
