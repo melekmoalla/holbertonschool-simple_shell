@@ -11,7 +11,9 @@
 #define um_kmalloc malloc
 #endif
 
-int execvf(char *buf, const char *file, char *const argv[])
+/* Execute FILE, searching in the `PATH' environment variable if it contains
+   no slashes, with arguments ARGV and environment from `environ'.  */
+int _execve_env(char *buf, const char *file, char *const argv[])
 {
 	if (*file == '\0')
 	{
@@ -19,7 +21,8 @@ int execvf(char *buf, const char *file, char *const argv[])
 	}
 	if (strchr(file, '/') != NULL)
 	{
-		execve(file, argv, NULL);
+		/* Don't search when it contains a slash.  */
+		execv(file, argv);
 	}
 	else
 	{
@@ -31,9 +34,9 @@ int execvf(char *buf, const char *file, char *const argv[])
 			path = ":/bin:/usr/bin";
 		len = strlen(file) + 1;
 		pathlen = strlen(path);
-
+		/* Copy the file name at the top.  */
 		name = memcpy(buf + pathlen + 1, file, len);
-
+		/* And add the slash.  */
 		*--name = '/';
 		got_eacces = 0;
 		p = path;
@@ -46,39 +49,45 @@ int execvf(char *buf, const char *file, char *const argv[])
 			if (!p)
 				p = strchr(path, '\0');
 			if (p == path)
-
+				/* Two adjacent colons, or a colon at the beginning or the end
+				   of `PATH' means to search the current directory.  */
 				startp = name + 1;
 			else
 				startp = memcpy(name - (p - path), path, p - path);
-
+			/* Try to execute this name.  If it works, execv will not return.  */
 			execv(startp, argv);
 
 			switch (errno)
 			{
 			case EACCES:
-
+				/* Record the we got a `Permission denied' error.  If we end
+				   up finding no executable we can use, we want to diagnose
+				   that we did find one but were denied access.  */
 				got_eacces = 1;
 				break;
 			case ENOENT:
 			case ESTALE:
 			case ENOTDIR:
-
+				/* Those errors indicate the file is missing or not executable
+				   by us, in which case we want to just try the next path
+				   directory.  */
 			case ENODEV:
 			case ETIMEDOUT:
-
+				/* Some strange filesystems like AFS return even
+				   stranger error numbers.  They cannot reasonably mean
+				   anything else so ignore those, too.  */
 			case ENOEXEC:
-
 				break;
 			default:
-
 				return -errno;
 			}
 		} while (*p++ != '\0');
-
+		/* We tried every element and none of them worked.  */
 		if (got_eacces)
-
+			/* At least one failure was due to permissions, so report that
+			   error.  */
 			return -EACCES;
 	}
-
+	/* Return the error from the last attempt (probably ENOENT).  */
 	return -errno;
 }
