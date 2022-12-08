@@ -5,7 +5,7 @@
  **/
 int main(void)
 {
-    char *path = NULL, *buff = NULL, *path = NULL;
+    char *path = NULL, *buff = NULL, *fullpath = NULL;
     int parsedStrLen;
     char **parsedStr, *copy = NULL;
     ssize_t readcount = 0;
@@ -37,10 +37,10 @@ int main(void)
             }
             parsedStr[parsedStrLen] = NULL;
             parseString(buff, parsedStr);
-            path = allpath(parsedStr, path, copy);
+            fullpath = allpath(parsedStr, path, copy);
             if (check(parsedStr, buff) != 0)
                 continue;
-            forkk(parsedStr, buff, path);
+            forkk(parsedStr, buff, fullpath);
         }
         else
             free(buff);
